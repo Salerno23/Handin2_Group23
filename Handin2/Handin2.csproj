@@ -43,8 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IUsbCharger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StationControl.cs" />
+    <Compile Include="TestUsbChargerSimulator.cs" />
+    <Compile Include="UsbChargerSimulator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
