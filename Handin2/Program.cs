@@ -1,8 +1,12 @@
-﻿    class Program
+﻿using System;
+
+namespace Ladeskab
+{
+    class Program
     {
         static void Main(string[] args)
         {
-				// Assemble your system here from all the classes
+            // Assemble your system here from all the classes
 
             bool finish = false;
             do
@@ -42,3 +46,4 @@
         }
     }
 }
+
