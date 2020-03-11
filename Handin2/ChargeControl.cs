@@ -8,5 +8,6 @@ namespace Ladeskab
 {
     class ChargeControl
     {
+
     }
 }
