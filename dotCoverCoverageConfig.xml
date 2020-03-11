@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AnalyseParams>
+  <TargetExecutable>C:\Program Files (x86)\NUnit.org\nunit-console\nunit3-console.exe</TargetExecutable>
+  <TargetArguments>bin\Debug\Handin2.Test.Unit.dll --result:TestResult.xml</TargetArguments>
+  <TargetWorkingDir>Handin2.Test.Unit</TargetWorkingDir>
+  <TempDir><!-- Directory for the auxiliary files. Set to system temp by default. --></TempDir>
+  <Output>coverage_report.html</Output>
+  <ReportType>HTML<!-- [HTML|JSON|XML|NDependXML]. A type of the report. XML by default. --></ReportType>
+  <InheritConsole><!-- [True|False] Lets the application being analysed to inherit dotCover console. True by default. --> </InheritConsole>
+  
+  <!-- Coverage filters. It's possible to use asterisks as wildcard symbols.
+  -->
+  <Filters>
+    <IncludeFilters>
+    </IncludeFilters>
+    <ExcludeFilters>
+      <FilterEntry>
+        <ModuleMask>nunit.framework</ModuleMask>
+        <ClassMask>*</ClassMask>
+        <FunctionMask>*</FunctionMask>
+      </FilterEntry>
+    </ExcludeFilters>
+  </Filters>
+  <!-- Attribute filters. It's possible to use asterisks as wildcard symbols.
+  <AttributeFilters>
+    <AttributeFilterEntry>...</AttributeFilterEntry>
+    <AttributeFilterEntry>...</AttributeFilterEntry>
+  </AttributeFilters>
+  -->
+</AnalyseParams>
