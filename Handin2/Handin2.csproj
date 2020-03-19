@@ -65,7 +65,9 @@
     <Compile Include="Door\Door.cs" />
     <Compile Include="Door\DoorStateChangedEventArgs.cs" />
     <Compile Include="Door\IDoor.cs" />
-    <Compile Include="Handout\IUsbCharger.cs" />
+    <Compile Include="ChargeControl\IChargeControl.cs" />
+    <Compile Include="LogFile\ILogFile.cs" />
+    <Compile Include="LogFile\LogFile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RFID\IRFIDReader.cs" />
