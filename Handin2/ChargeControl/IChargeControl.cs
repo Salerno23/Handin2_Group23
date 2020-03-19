@@ -8,7 +8,7 @@ namespace Ladeskab
         public double Current { set; get; }
     }
 
-    public interface IUsbCharger
+    public interface IChargeControl
     {
         // Event triggered on new current value
         event EventHandler<CurrentEventArgs> CurrentValueEvent;
@@ -17,7 +17,7 @@ namespace Ladeskab
         double CurrentValue { get; }
 
         // Require connection status of the phone
-        bool Connected { get; }
+        bool IsConnected { get; }
 
         // Start charging
         void StartCharge();
