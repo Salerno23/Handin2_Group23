@@ -25,6 +25,10 @@ namespace Ladeskab
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
         // Her mangler constructor
+        public StationControl(IDoor doorStatus)
+        {
+            doorStatus.DoorStateChangedEvent += HandleDoorStateChangedEvent;
+        }
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
         private void RfidDetected(int id)
@@ -81,5 +85,9 @@ namespace Ladeskab
         }
 
         // Her mangler de andre trigger handlere
+        private void HandleDoorStateChangedEvent(object sender, DoorStateChangedEventArgs e)
+        {
+            //her skal ske noget
+        }
     }
 }
