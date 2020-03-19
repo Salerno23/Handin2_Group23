@@ -59,20 +59,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChargeControl.cs" />
+    <Compile Include="ChargeControl\ChargeControl.cs" />
     <Compile Include="Display\Display.cs" />
     <Compile Include="Display\IDisplay.cs" />
     <Compile Include="Door\Door.cs" />
     <Compile Include="Door\DoorStateChangedEventArgs.cs" />
     <Compile Include="Door\IDoor.cs" />
-    <Compile Include="IUsbCharger.cs" />
+    <Compile Include="Handout\IUsbCharger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RFID\IRFIDReader.cs" />
     <Compile Include="RFID\ReadRFIDEventArgs.cs" />
     <Compile Include="RFID\RFIDReader.cs" />
     <Compile Include="StationControl.cs" />
-    <Compile Include="UsbChargerSimulator.cs" />
+    <Compile Include="Handout\UsbChargerSimulator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
