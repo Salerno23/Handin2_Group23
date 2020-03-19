@@ -48,6 +48,8 @@
     <Compile Include="ChargeControl.cs" />
     <Compile Include="Display.cs" />
     <Compile Include="Door.cs" />
+    <Compile Include="DoorStateChangedEventArgs.cs" />
+    <Compile Include="IDoor.cs" />
     <Compile Include="IUsbCharger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
