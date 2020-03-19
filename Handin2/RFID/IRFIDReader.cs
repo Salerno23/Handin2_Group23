@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ladeskab
+namespace Handin2.RFID
 {
-    class RfidReader
+    public interface IRFIDReader
     {
+        event EventHandler<ReadRFIDEventArgs> ReadRFIDEvent;
     }
 }
