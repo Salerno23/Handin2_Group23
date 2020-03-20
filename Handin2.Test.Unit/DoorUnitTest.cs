@@ -45,7 +45,21 @@ namespace Handin2.Test.Unit
         }
 
 
-        
+        [Test]
+        public void testLockDoor()
+        {
+            _uut.LockDoor();
+
+            Assert.That(_uut._IsLocked, Is.True);
+        }
+
+        [Test]
+        public void testUnlockDoor()
+        {
+            _uut.UnlockDoor();
+
+            Assert.That(_uut._IsLocked, Is.False);
+        }
 
     }
 }

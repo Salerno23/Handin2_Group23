@@ -8,7 +8,7 @@ namespace Ladeskab
 {
     public class Door : IDoor
     {
-        private bool _IsLocked;
+        public bool _IsLocked { get; set; }
         private bool _oldDoorState;
         public event EventHandler<DoorStateChangedEventArgs> DoorStateChangedEvent;
 
