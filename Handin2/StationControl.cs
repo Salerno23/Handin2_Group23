@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Handin2.RFID;
 
 namespace Ladeskab
 {
@@ -26,9 +27,10 @@ namespace Ladeskab
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
         // Her mangler constructor
-        public StationControl(IDoor doorStatus)
+        public StationControl(IDoor doorStatus, IRFIDReader rfidReader)
         {
             doorStatus.DoorStateChangedEvent += HandleDoorStateChangedEvent;
+            rfidReader.ReadRFIDEvent += HandleReadRFIDEvent;
         }
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
@@ -89,6 +91,11 @@ namespace Ladeskab
         private void HandleDoorStateChangedEvent(object sender, DoorStateChangedEventArgs e)
         {
             //her skal ske noget
+        }
+
+        private void HandleReadRFIDEvent(object sender, ReadRFIDEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
