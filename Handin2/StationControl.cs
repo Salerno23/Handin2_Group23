@@ -23,6 +23,7 @@ namespace Ladeskab
         private IChargeControl _charger;
         private IDoor _door;
         private int _oldId;
+        private bool _doorState;
 
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
@@ -90,7 +91,7 @@ namespace Ladeskab
         // Her mangler de andre trigger handlere
         private void HandleDoorStateChangedEvent(object sender, DoorStateChangedEventArgs e)
         {
-            //her skal ske noget
+            _doorState = e.IsClosed;
         }
 
         private void HandleReadRFIDEvent(object sender, ReadRFIDEventArgs e)
