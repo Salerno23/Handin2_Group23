@@ -8,6 +8,7 @@ using NUnit.Framework;
 
 namespace Handin2.Test.Unit
 {
+    [TestFixture]
     public class DoorUnitTest
     {
         private Door _uut;
