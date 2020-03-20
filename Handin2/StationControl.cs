@@ -85,7 +85,7 @@ namespace Ladeskab
 
                         using (var writer = File.AppendText(logFile))
                         {
-                            writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", id);
+                            writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", e.RFIDTag);
                         }
 
                         _display.DisplayMessage("Tag din telefon ud af skabet og luk døren");
