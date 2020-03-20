@@ -35,5 +35,12 @@ namespace Handin2.Test.Unit
             
         }
 
+        [Test]
+        public void setDoorStateToNewState_TestStateIsTrue()
+        {
+            _uut.SetDoorState(true);
+            Assert.That(_receivedEventArgs.IsClosed, Is.True);
+        }
+
     }
 }
