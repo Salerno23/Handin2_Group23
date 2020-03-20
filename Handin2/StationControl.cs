@@ -11,6 +11,7 @@ namespace Ladeskab
     public class StationControl
     {
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
+        private LadeskabState _state;
         private enum LadeskabState
         {
             Available,
@@ -19,23 +20,32 @@ namespace Ladeskab
         };
 
         // Her mangler flere member variable
-        private LadeskabState _state;
         private IChargeControl _charger;
         private IDoor _door;
+        private IDisplay _display;
+
         private int _oldId;
+
         public bool DoorState { get; set; }
 
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
         // Her mangler constructor
-        public StationControl(IDoor doorStatus, IRFIDReader rfidReader)
+        public StationControl(IDoor doorStatus, IRFIDReader rfidReader, IDisplay display)
         {
             doorStatus.DoorStateChangedEvent += HandleDoorStateChangedEvent;
             rfidReader.ReadRFIDEvent += HandleReadRFIDEvent;
+            _display = display;
         }
 
-        // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
-        private void RfidDetected(int id)
+
+        // Her mangler de andre trigger handlere
+        private void HandleDoorStateChangedEvent(object sender, DoorStateChangedEventArgs e)
+        {
+            DoorState = e.IsClosed;
+        }
+
+        private void HandleReadRFIDEvent(object sender, ReadRFIDEventArgs e)
         {
             switch (_state)
             {
@@ -45,18 +55,19 @@ namespace Ladeskab
                     {
                         _door.LockDoor();
                         _charger.StartCharge();
-                        _oldId = id;
+                        _oldId = e.RFIDTag;
+
                         using (var writer = File.AppendText(logFile))
                         {
-                            writer.WriteLine(DateTime.Now + ": Skab låst med RFID: {0}", id);
+                            writer.WriteLine(DateTime.Now + ": Skab låst med RFID: {0}", e.RFIDTag);
                         }
 
-                        Console.WriteLine("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
+                        _display.DisplayMessage("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
                         _state = LadeskabState.Locked;
                     }
                     else
                     {
-                        Console.WriteLine("Din telefon er ikke ordentlig tilsluttet. Prøv igen.");
+                        _display.DisplayMessage("Din telefon er ikke ordentlig tilsluttet. Prøv igen.");
                     }
 
                     break;
@@ -67,36 +78,26 @@ namespace Ladeskab
 
                 case LadeskabState.Locked:
                     // Check for correct ID
-                    if (id == _oldId)
+                    if (e.RFIDTag == _oldId)
                     {
                         _charger.StopCharge();
                         _door.UnlockDoor();
+
                         using (var writer = File.AppendText(logFile))
                         {
                             writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", id);
                         }
 
-                        Console.WriteLine("Tag din telefon ud af skabet og luk døren");
+                        _display.DisplayMessage("Tag din telefon ud af skabet og luk døren");
                         _state = LadeskabState.Available;
                     }
                     else
                     {
-                        Console.WriteLine("Forkert RFID tag");
+                        _display.DisplayMessage("Forkert RFID tag");
                     }
 
                     break;
             }
-        }
-
-        // Her mangler de andre trigger handlere
-        private void HandleDoorStateChangedEvent(object sender, DoorStateChangedEventArgs e)
-        {
-            DoorState = e.IsClosed;
-        }
-
-        private void HandleReadRFIDEvent(object sender, ReadRFIDEventArgs e)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -16,14 +16,16 @@ namespace Handin2.Test.Unit
         private StationControl _uut;
         private IDoor _door;
         private IRFIDReader _rfidReader;
+        private IDisplay _display;
 
         [SetUp]
         public void Setup()
         {
             _door = Substitute.For<IDoor>();
             _rfidReader = Substitute.For<IRFIDReader>();
+            _display = Substitute.For<IDisplay>();
 
-            _uut = new StationControl(_door, _rfidReader);
+            _uut = new StationControl(_door, _rfidReader, _display);
 
         }
 
