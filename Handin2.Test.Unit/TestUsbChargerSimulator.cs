@@ -22,7 +22,7 @@ namespace UsbSimulator.Test
         [Test]
         public void ctor_IsConnected()
         {
-            Assert.That(_uut.Connected, Is.True);
+            Assert.That(_uut.IsConnected, Is.True);
         }
 
         [Test]
@@ -35,7 +35,7 @@ namespace UsbSimulator.Test
         public void SimulateDisconnected_ReturnsDisconnected()
         {
             _uut.SimulateConnected(false);
-            Assert.That(_uut.Connected, Is.False);
+            Assert.That(_uut.IsConnected, Is.False);
         }
 
         [Test]
