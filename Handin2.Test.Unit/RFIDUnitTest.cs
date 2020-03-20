@@ -32,5 +32,12 @@ namespace Handin2.Test.Unit
             _uut.SetRFIDTag(13);
             Assert.That(_receivedEventArgs, Is.Not.Null);
         }
+
+        [Test]
+        public void SetRFID_RFIDSetToNewValue_CorrectRFIDReceived()
+        {
+            _uut.SetRFIDTag(113);
+            Assert.That(_receivedEventArgs.RFIDTag, Is.EqualTo(113));
+        }
     }
 }
