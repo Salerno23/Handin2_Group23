@@ -52,13 +52,13 @@
     <Compile Include="TestUsbChargerSimulator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Handin2\LadeskabLibrary.csproj">
       <Project>{2ca1a5fe-ccac-4c7b-910a-90cf7af9bc00}</Project>
       <Name>LadeskabLibrary</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
