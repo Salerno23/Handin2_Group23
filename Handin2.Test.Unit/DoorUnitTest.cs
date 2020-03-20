@@ -36,11 +36,29 @@ namespace Handin2.Test.Unit
             
         }
 
-        [Test]
-        public void setDoorStateToNewState_TestStateIsTrue()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void setDoorStateToNewState_TestStateIsSetCorrect(bool state)
         {
-            _uut.SetDoorState(true);
-            Assert.That(_receivedEventArgs.IsClosed, Is.True);
+            _uut.SetDoorState(state);
+            Assert.That(_receivedEventArgs.IsClosed, Is.EqualTo(state));
+        }
+
+
+        [Test]
+        public void testLockDoor()
+        {
+            _uut.LockDoor();
+
+            Assert.That(_uut._IsLocked, Is.True);
+        }
+
+        [Test]
+        public void testUnlockDoor()
+        {
+            _uut.UnlockDoor();
+
+            Assert.That(_uut._IsLocked, Is.False);
         }
 
     }
