@@ -25,7 +25,13 @@ namespace Handin2.Test.Unit
 
             _uut = new StationControl(_door, _rfidReader);
 
-            
+        }
+
+        [Test]
+        public void DoorStateChanged_EventFired_DoorStateChanged()
+        {
+            _door.DoorStateChangedEvent += Raise.EventWith(new DoorStateChangedEventArgs() { IsClosed = false });
+            Assert.That(_uut.DoorState, Is.False);
         }
     }
 }
