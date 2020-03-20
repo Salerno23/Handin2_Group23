@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Handin2.RFID;
 
 namespace Ladeskab
 {
@@ -27,15 +26,18 @@ namespace Ladeskab
         private int _oldId;
 
         public bool DoorState { get; set; }
+        public int ReadRFIDTag { get; set; }
 
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
         // Her mangler constructor
-        public StationControl(IDoor doorStatus, IRFIDReader rfidReader, IDisplay display)
+        public StationControl(IDoor doorStatus, IRFIDReader rfidReader, IDisplay display, IChargeControl charger)
         {
             doorStatus.DoorStateChangedEvent += HandleDoorStateChangedEvent;
             rfidReader.ReadRFIDEvent += HandleReadRFIDEvent;
             _display = display;
+            _charger = charger;
+            _state = LadeskabState.Available;
         }
 
 
@@ -47,6 +49,7 @@ namespace Ladeskab
 
         private void HandleReadRFIDEvent(object sender, ReadRFIDEventArgs e)
         {
+            ReadRFIDTag = e.RFIDTag;
             switch (_state)
             {
                 case LadeskabState.Available:
@@ -55,7 +58,7 @@ namespace Ladeskab
                     {
                         _door.LockDoor();
                         _charger.StartCharge();
-                        _oldId = e.RFIDTag;
+                        _oldId = ReadRFIDTag;
 
                         using (var writer = File.AppendText(logFile))
                         {
@@ -78,14 +81,14 @@ namespace Ladeskab
 
                 case LadeskabState.Locked:
                     // Check for correct ID
-                    if (e.RFIDTag == _oldId)
+                    if (ReadRFIDTag == _oldId)
                     {
                         _charger.StopCharge();
                         _door.UnlockDoor();
 
                         using (var writer = File.AppendText(logFile))
                         {
-                            writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", e.RFIDTag);
+                            writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", ReadRFIDTag);
                         }
 
                         _display.DisplayMessage("Tag din telefon ud af skabet og luk døren");
