@@ -25,14 +25,29 @@ namespace Ladeskab
 
         public void SetDoorState(bool state)
         {
-            if(state != _oldDoorState)
+            if(state == true)
             {
-                OnDoorStateChanged(new DoorStateChangedEventArgs { IsClosed = state });
+                OnDoorOpen(new DoorStateChangedEventArgs { IsClosed = state });
+                _oldDoorState = state;
+            }
+            else if (state == false)
+            {
+                OnDoorClose(new DoorStateChangedEventArgs { IsClosed = state });
                 _oldDoorState = state;
             }
         }
 
-        protected virtual void OnDoorStateChanged(DoorStateChangedEventArgs e)
+        //protected virtual void OnDoorStateChanged(DoorStateChangedEventArgs e)
+        //{
+        //    DoorStateChangedEvent?.Invoke(this, e);
+        //}
+
+        protected virtual void OnDoorOpen(DoorStateChangedEventArgs e)
+        {
+            DoorStateChangedEvent?.Invoke(this, e);
+        }
+
+        protected virtual void OnDoorClose(DoorStateChangedEventArgs e)
         {
             DoorStateChangedEvent?.Invoke(this, e);
         }
