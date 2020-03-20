@@ -7,7 +7,7 @@ using Handin2.RFID;
 
 namespace Ladeskab
 {
-    class RFIDReader : IRFIDReader
+    public class RFIDReader : IRFIDReader
     {
         public event EventHandler<ReadRFIDEventArgs> ReadRFIDEvent;
 
