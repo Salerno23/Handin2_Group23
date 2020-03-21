@@ -15,9 +15,9 @@ namespace Handin2.Test.Unit
         }
 
         [Test]
-        public void ctor_IsConnected()
+        public void ctor_Connected()
         {
-            Assert.That(_uut.IsConnected, Is.True);
+            Assert.That(_uut.Connected, Is.True);
         }
 
         [Test]
@@ -27,10 +27,10 @@ namespace Handin2.Test.Unit
         }
 
         [Test]
-        public void SimulateDisconnected_ReturnsDisconnected()
+        public void SimulateDConnected_ReturnsDConnected()
         {
             _uut.SimulateConnected(false);
-            Assert.That(_uut.IsConnected, Is.False);
+            Assert.That(_uut.Connected, Is.False);
         }
 
         [Test]
@@ -111,7 +111,7 @@ namespace Handin2.Test.Unit
         }
 
         [Test]
-        public void Started_SimulateDisconnected_ReceivesZero()
+        public void Started_SimulateDConnected_ReceivesZero()
         {
             ManualResetEvent pause = new ManualResetEvent(false);
             double lastValue = 1000;
@@ -132,7 +132,7 @@ namespace Handin2.Test.Unit
             // Reset event
             pause.Reset();
 
-            // Wait for next tick, should send disconnected value
+            // Wait for next tick, should send dConnected value
             pause.WaitOne(300);
 
             Assert.That(lastValue, Is.Zero);
@@ -160,7 +160,7 @@ namespace Handin2.Test.Unit
         }
 
         [Test]
-        public void SimulateDisconnected_Start_ReceivesZeroValueImmediately()
+        public void SimulateDConnected_Start_ReceivesZeroValueImmediately()
         {
             double lastValue = 1000;
 

@@ -35,6 +35,7 @@ namespace Ladeskab
         {
             doorStatus.DoorStateChangedEvent += HandleDoorStateChangedEvent;
             rfidReader.ReadRFIDEvent += HandleReadRFIDEvent;
+            _door = doorStatus;
             _display = display;
             _charger = charger;
             _state = LadeskabState.Available;

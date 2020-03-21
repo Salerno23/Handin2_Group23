@@ -3,7 +3,7 @@ using System.Timers;
 
 namespace Ladeskab
 {
-    public class UsbChargerSimulator : IChargeControl
+    public class UsbChargerSimulator : IUsbCharger
     {
         // Constants
         private const double MaxCurrent = 500.0; // mA
@@ -16,7 +16,7 @@ namespace Ladeskab
 
         public double CurrentValue { get; private set; }
 
-        public bool IsConnected { get; private set; }
+        public bool Connected { get; private set; }
 
         private bool _overload;
         private bool _charging;
@@ -26,7 +26,7 @@ namespace Ladeskab
         public UsbChargerSimulator()
         {
             CurrentValue = 0.0;
-            IsConnected = true;
+            Connected = true;
             _overload = false;
 
             _timer = new System.Timers.Timer();
@@ -41,17 +41,17 @@ namespace Ladeskab
             if (_charging)
             {
                 _ticksSinceStart++;
-                if (IsConnected && !_overload)
+                if (Connected && !_overload)
                 {
                     double newValue = MaxCurrent - 
                                       _ticksSinceStart * (MaxCurrent - FullyChargedCurrent) / (ChargeTimeMinutes * 60 * 1000 / CurrentTickInterval);
                     CurrentValue = Math.Max(newValue, FullyChargedCurrent);
                 }
-                else if (IsConnected && _overload)
+                else if (Connected && _overload)
                 {
                     CurrentValue = OverloadCurrent;
                 }
-                else if (!IsConnected)
+                else if (!Connected)
                 {
                     CurrentValue = 0.0;
                 }
@@ -62,7 +62,7 @@ namespace Ladeskab
 
         public void SimulateConnected(bool connected)
         {
-            IsConnected = connected;
+            Connected = connected;
         }
 
         public void SimulateOverload(bool overload)
@@ -75,15 +75,15 @@ namespace Ladeskab
             // Ignore if already charging
             if (!_charging)
             {
-                if (IsConnected && !_overload)
+                if (Connected && !_overload)
                 {
                     CurrentValue = 500;
                 }
-                else if (IsConnected && _overload)
+                else if (Connected && _overload)
                 {
                     CurrentValue = OverloadCurrent;
                 }
-                else if (!IsConnected)
+                else if (!Connected)
                 {
                     CurrentValue = 0.0;
                 }
