@@ -30,15 +30,17 @@ namespace Handin2.Test.Unit
             _uut = new StationControl(_door, _rfidReader, _display, _charger);
         }
 
-        [Test]
-        public void DoorStateChanged_EventFired_DoorStateChanged()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DoorStateChanged_EventFired_DoorStateChanged(bool state)
         {
-            _door.DoorStateChangedEvent += Raise.EventWith(new DoorStateChangedEventArgs() { IsClosed = false });
-            Assert.That(_uut.DoorState, Is.False);
+            _door.DoorStateChangedEvent += Raise.EventWith(new DoorStateChangedEventArgs() { IsClosed = state});
+            Assert.That(_uut.DoorState, Is.EqualTo(state));
         }
 
-        [TestCase(10)]
         [TestCase(-1)]
+        [TestCase(0)]
+        [TestCase(1)]
         public void ReadRFID_DifferentArguments_CurrentRFIDIsCorrect(int tag)
         {
             _rfidReader.ReadRFIDEvent += Raise.EventWith(new ReadRFIDEventArgs{RFIDTag = tag});

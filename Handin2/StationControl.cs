@@ -18,7 +18,6 @@ namespace Ladeskab
             DoorOpen
         };
 
-        // Her mangler flere member variable
         private IChargeControl _charger;
         private IDoor _door;
         private IDisplay _display;
@@ -30,14 +29,15 @@ namespace Ladeskab
 
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
-        // Her mangler constructor
         public StationControl(IDoor doorStatus, IRFIDReader rfidReader, IDisplay display, IChargeControl charger)
         {
             doorStatus.DoorStateChangedEvent += HandleDoorStateChangedEvent;
             rfidReader.ReadRFIDEvent += HandleReadRFIDEvent;
+
             _door = doorStatus;
             _display = display;
             _charger = charger;
+
             _state = LadeskabState.Available;
         }
 

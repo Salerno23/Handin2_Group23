@@ -32,11 +32,13 @@ namespace Handin2.Test.Unit
             Assert.That(_receivedEventArgs, Is.Not.Null);
         }
 
-        [Test]
-        public void SetRFID_RFIDSetToNewValue_CorrectRFIDReceived()
+        [TestCase(-1)]
+        [TestCase(0)]
+        [TestCase(1)]
+        public void SetRFID_RFIDSetToNewValue_CorrectRFIDReceived(int newTag)
         {
-            _uut.SetRFIDTag(113);
-            Assert.That(_receivedEventArgs.RFIDTag, Is.EqualTo(113));
+            _uut.SetRFIDTag(newTag);
+            Assert.That(_receivedEventArgs.RFIDTag, Is.EqualTo(newTag));
         }
     }
 }
