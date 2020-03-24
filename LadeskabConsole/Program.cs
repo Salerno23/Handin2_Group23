@@ -1,12 +1,21 @@
 ﻿using System;
+using Ladeskab;
 
 namespace Ladeskab
 {
     class Program
     {
+      
         static void Main(string[] args)
         {
-            // Assemble your system here from all the classes
+            Door door = new Door();
+            RFIDReader rfidReader = new RFIDReader();
+            Display display = new Display();
+            UsbChargerSimulator usbChargerSimulator = new UsbChargerSimulator();
+            ChargeControl chargeControl = new ChargeControl(usbChargerSimulator, display);
+
+            StationControl stationControl = new StationControl(door, rfidReader, display, chargeControl);
+
 
             bool finish = false;
             do
@@ -23,11 +32,11 @@ namespace Ladeskab
                         break;
 
                     case 'O':
-                        //door.OnDoorOpen();
+                        door.SetDoorState(true);
                         break;
 
                     case 'C':
-                        //door.OnDoorClose();
+                        door.SetDoorState(false);
                         break;
 
                     case 'R':
@@ -35,8 +44,10 @@ namespace Ladeskab
                         string idString = System.Console.ReadLine();
 
                         int id = Convert.ToInt32(idString);
-                        //rfidReader.OnRfidRead(id);
+                        rfidReader.SetRFIDTag(id);
                         break;
+
+
 
                     default:
                         break;

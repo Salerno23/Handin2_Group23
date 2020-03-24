@@ -49,5 +49,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Handin2\LadeskabLibrary.csproj">
+      <Project>{2ca1a5fe-ccac-4c7b-910a-90cf7af9bc00}</Project>
+      <Name>LadeskabLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
