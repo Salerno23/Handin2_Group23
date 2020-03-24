@@ -67,13 +67,15 @@ namespace Handin2.Test.Unit
         [Test]
         public void StopCharge_()
         {
-            _usbCharger.StopCharge();
+            _uut.StopCharge();
+            _usbCharger.Received().StopCharge();
         }
 
         [Test]
         public void StartCharge_()
         {
-            _usbCharger.StartCharge();
+            _uut.StartCharge();
+            _usbCharger.Received().StartCharge();
         }
 
     }
