@@ -19,8 +19,6 @@ namespace Handin2.Test.Unit
         private IDisplay _display;
         private IChargeControl _charger;
 
-        private IUsbCharger _usbCharger;
-
         [SetUp]
         public void Setup()
         {
@@ -55,6 +53,28 @@ namespace Handin2.Test.Unit
             _charger.IsConnected.Returns(true);
             _rfidReader.ReadRFIDEvent += Raise.EventWith(new ReadRFIDEventArgs() {RFIDTag = 32});
             _door.Received(1).LockDoor();
+        }
+
+        [Test]
+        public void ReadRFID_StartChargeCalled_InAvailable()
+        {
+            _charger.IsConnected.Returns(true);
+            _rfidReader.ReadRFIDEvent += Raise.EventWith(new ReadRFIDEventArgs() { RFIDTag = 32 });
+            _charger.Received(1).StartCharge();
+        }
+
+        [Test]
+        public void ReadRFID_DisplayMessageCalled_InAvailable()
+        {
+            _charger.IsConnected.Returns(true);
+            _rfidReader.ReadRFIDEvent += Raise.EventWith(new ReadRFIDEventArgs() { RFIDTag = 32 });
+            _display.Received(1).DisplayMessage("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
+        }
+
+        [Test]
+        public void DoorOpened_Test()
+        {
+            _door.SetDoorState(true);
         }
     }
 }

@@ -12,5 +12,6 @@ namespace Ladeskab
 
         void LockDoor();
         void UnlockDoor();
+        void SetDoorState(bool state);
     }
 }
