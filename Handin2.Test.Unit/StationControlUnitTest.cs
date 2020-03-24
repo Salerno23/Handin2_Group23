@@ -19,6 +19,8 @@ namespace Handin2.Test.Unit
         private IDisplay _display;
         private IChargeControl _charger;
 
+        private IUsbCharger _usbCharger;
+
         [SetUp]
         public void Setup()
         {
@@ -45,6 +47,14 @@ namespace Handin2.Test.Unit
         {
             _rfidReader.ReadRFIDEvent += Raise.EventWith(new ReadRFIDEventArgs{RFIDTag = tag});
             Assert.That(_uut.ReadRFIDTag,Is.EqualTo(tag));
+        }
+
+        [Test]
+        public void ReadRFID_LockDoorCalled_InAvailable()
+        {
+            _charger.IsConnected.Returns(true);
+            _rfidReader.ReadRFIDEvent += Raise.EventWith(new ReadRFIDEventArgs() {RFIDTag = 32});
+            _door.Received(1).LockDoor();
         }
     }
 }

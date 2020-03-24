@@ -17,6 +17,7 @@ namespace Ladeskab
             StationControl stationControl = new StationControl(door, rfidReader, display, chargeControl);
 
 
+
             bool finish = false;
             do
             {
