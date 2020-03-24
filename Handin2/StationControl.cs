@@ -39,14 +39,12 @@ namespace Ladeskab
 
 
             _door.UnlockDoor();
-            _display.DisplayMessage("Indlæs RFID");
             _state = LadeskabState.Available;
         }
 
         private void HandleDoorStateChangedEvent(object sender, DoorStateChangedEventArgs e)
         {
             DoorState = e.IsClosed;
-            State();
         }
 
         private void HandleReadRFIDEvent(object sender, ReadRFIDEventArgs e)
