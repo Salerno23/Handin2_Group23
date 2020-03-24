@@ -39,7 +39,6 @@ namespace Ladeskab
 
 
             _door.UnlockDoor();
-            _display.DisplayMessage("Indlæs RFID");
             _state = LadeskabState.Available;
         }
 
