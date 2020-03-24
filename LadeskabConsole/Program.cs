@@ -16,8 +16,6 @@ namespace Ladeskab
 
             StationControl stationControl = new StationControl(door, rfidReader, display, chargeControl);
 
-
-
             bool finish = false;
             do
             {
@@ -38,6 +36,7 @@ namespace Ladeskab
 
                     case 'C':
                         door.SetDoorState(false);
+                        
                         break;
 
                     case 'R':

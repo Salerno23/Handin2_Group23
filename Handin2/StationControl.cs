@@ -46,7 +46,16 @@ namespace Ladeskab
         private void HandleDoorStateChangedEvent(object sender, DoorStateChangedEventArgs e)
         {
             DoorState = e.IsClosed;
-            State();
+
+            if (DoorState)
+            {
+                _display.DisplayMessage("Tilslut telefon");
+            }
+            else
+            {
+                _display.DisplayMessage("Indlæs RFID");
+                _state = LadeskabState.Available;
+            }
         }
 
         private void HandleReadRFIDEvent(object sender, ReadRFIDEventArgs e)
@@ -82,15 +91,7 @@ namespace Ladeskab
                     break;
 
                 case LadeskabState.DoorOpen:
-                    if (DoorState)
-                    {
-                        _display.DisplayMessage("Tilslut telefon");
-                    }
-                    else
-                    {
-                        _display.DisplayMessage("Indlæs RFID");
-                        _state = LadeskabState.Available;
-                    }
+                    //ignore
 
                     break;
 
