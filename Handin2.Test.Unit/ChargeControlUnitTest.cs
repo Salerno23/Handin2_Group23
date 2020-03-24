@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Castle.Components.DictionaryAdapter.Xml;
 using Ladeskab;
 using NSubstitute;
 using NUnit.Framework;
@@ -45,6 +46,35 @@ namespace Handin2.Test.Unit
             Assert.That(_uut.CurrentValue, Is.Not.Null);
         }
         
+        [TestCase(-1.0)]
+        [TestCase(0.0)]
+        [TestCase(0.1)]
+        [TestCase(2)]
+        [TestCase(4.9)]
+        [TestCase(5.0)]
+        [TestCase(5.1)]
+        [TestCase(250)]
+        [TestCase(499)]
+        [TestCase(500)]
+        [TestCase(501)]
+        public void NewCurrentEvent_CurrentIsCorrectValue_(double current)
+        {
+           _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs() { Current = current });
+            Assert.That(_uut.CurrentValue, Is.EqualTo(current));
+        }
+
         
+        [Test]
+        public void StopCharge_()
+        {
+            _usbCharger.StopCharge();
+        }
+
+        [Test]
+        public void StartCharge_()
+        {
+            _usbCharger.StartCharge();
+        }
+
     }
 }

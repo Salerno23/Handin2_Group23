@@ -30,6 +30,22 @@ namespace Ladeskab
         private void HandleNewCurrentEvent(object s, CurrentEventArgs e)
         {
             CurrentValue = e.Current;
+            if (CurrentValue == 0.0)
+            {
+                _display.DisplayMessage("Ingen forbindelse til telefon. Opladning ikke startet.");
+            }
+            else if(CurrentValue < 0.0 &&  CurrentValue <= 5.0)
+            {
+                _display.DisplayMessage("Telefonen er fuldt opladet");
+            }
+            else if (CurrentValue < 5.0 && CurrentValue <= 500.0)
+            {
+                _display.DisplayMessage("Opladning er i gang.");
+            }
+            else if (CurrentValue > 500.0)
+            {
+                _display.DisplayMessage("Der er sket en fejl. Frakobl venligst telefonen");
+            }
         }
 
 
@@ -41,13 +57,13 @@ namespace Ladeskab
         public void StartCharge()
         {
             _usbCharger.StartCharge();
-            _display.DisplayMessage("Phone is charging");
+            _display.DisplayMessage("telefon oplader");
         }
 
         public void StopCharge()
         {
             _usbCharger.StopCharge();
-            _display.DisplayMessage("Phone stopped charging");
+            _display.DisplayMessage("Telefon har stoppet opladning");
         }
 
     }
