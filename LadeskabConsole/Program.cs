@@ -1,19 +1,28 @@
 ﻿using System;
+using Ladeskab;
 
 namespace Ladeskab
 {
     class Program
     {
+      
         static void Main(string[] args)
         {
-            // Assemble your system here from all the classes
+            Door door = new Door();
+            RFIDReader rfidReader = new RFIDReader();
+            Display display = new Display();
+            UsbChargerSimulator usbChargerSimulator = new UsbChargerSimulator();
+            ChargeControl chargeControl = new ChargeControl(usbChargerSimulator, display);
+
+            StationControl stationControl = new StationControl(door, rfidReader, display, chargeControl);
+
 
 
             bool finish = false;
             do
             {
                 string input;
-                System.Console.WriteLine("Indtast E, O, C, R: ");
+                System.Console.WriteLine("Indtast E, O, C, R, A: ");
                 input = Console.ReadLine();
                 if (string.IsNullOrEmpty(input)) continue;
 
@@ -24,11 +33,11 @@ namespace Ladeskab
                         break;
 
                     case 'O':
-                        //door.OnDoorOpen();
+                        door.SetDoorState(true);
                         break;
 
                     case 'C':
-                        //door.OnDoorClose();
+                        door.SetDoorState(false);
                         break;
 
                     case 'R':
@@ -36,8 +45,24 @@ namespace Ladeskab
                         string idString = System.Console.ReadLine();
 
                         int id = Convert.ToInt32(idString);
-                        //rfidReader.OnRfidRead(id);
+                        rfidReader.SetRFIDTag(id);
                         break;
+
+                    case 'A':
+                        System.Console.WriteLine("Tilslut telefon Y/N");
+                        string conString = System.Console.ReadLine();
+                        
+                        if(conString == "Y" )
+                        {
+                            usbChargerSimulator.SimulateConnected(true);
+                        }
+                        else
+                        {
+                            usbChargerSimulator.SimulateConnected(false);
+                        }
+                        
+                        break;
+
 
                     default:
                         break;

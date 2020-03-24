@@ -37,11 +37,6 @@ namespace Ladeskab
             }
         }
 
-        //protected virtual void OnDoorStateChanged(DoorStateChangedEventArgs e)
-        //{
-        //    DoorStateChangedEvent?.Invoke(this, e);
-        //}
-
         protected virtual void OnDoorOpen(DoorStateChangedEventArgs e)
         {
             DoorStateChangedEvent?.Invoke(this, e);
