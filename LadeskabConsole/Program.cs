@@ -22,7 +22,7 @@ namespace Ladeskab
             do
             {
                 string input;
-                System.Console.WriteLine("Indtast E, O, C, R: ");
+                System.Console.WriteLine("Indtast E, O, C, R, A: ");
                 input = Console.ReadLine();
                 if (string.IsNullOrEmpty(input)) continue;
 
@@ -48,6 +48,20 @@ namespace Ladeskab
                         rfidReader.SetRFIDTag(id);
                         break;
 
+                    case 'A':
+                        System.Console.WriteLine("Tilslut telefon Y/N");
+                        string conString = System.Console.ReadLine();
+                        
+                        if(conString == "Y" )
+                        {
+                            usbChargerSimulator.SimulateConnected(true);
+                        }
+                        else
+                        {
+                            usbChargerSimulator.SimulateConnected(false);
+                        }
+                        
+                        break;
 
 
                     default:
