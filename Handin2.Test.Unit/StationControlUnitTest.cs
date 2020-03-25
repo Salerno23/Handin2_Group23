@@ -95,5 +95,18 @@ namespace Handin2.Test.Unit
             //1 call received in constructor, 1 called in state machine
             _door.Received(2).UnlockDoor();
         }
+
+        [Test]
+        public void ReadRFID_WrongRFIDErrorMessageCalled_LadeskabLocked()
+        {
+            //Ladeskab available -> Ladeskab locked
+            _charger.IsConnected.Returns(true);
+            _rfidReader.ReadRFIDEvent += Raise.EventWith(new ReadRFIDEventArgs() { RFIDTag = 32 });
+
+            //Ladeskab locked -> Ladeskab locked: Wrong RFID
+            _rfidReader.ReadRFIDEvent += Raise.EventWith(new ReadRFIDEventArgs() { RFIDTag = 31 });
+            //1 call received in constructor, 1 called in state machine
+            _display.Received(1).DisplayMessage("Forkert RFID tag");
+        }
     }
 }
