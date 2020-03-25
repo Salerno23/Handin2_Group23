@@ -20,7 +20,7 @@
         <FunctionMask>*</FunctionMask>
       </FilterEntry>
 	  <FilterEntry>
-        <ModuleMask>Ladeskab</ModuleMask>
+        <ModuleMask>LadeskabLibrary</ModuleMask>
         <ClassMask>Ladeskab.Display</ClassMask>
         <FunctionMask>*</FunctionMask>
       </FilterEntry>
