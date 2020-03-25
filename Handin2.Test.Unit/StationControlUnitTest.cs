@@ -34,7 +34,7 @@ namespace Handin2.Test.Unit
         [TestCase(false)]
         public void DoorStateChanged_EventFired_DoorStateChanged(bool state)
         {
-            _door.DoorStateChangedEvent += Raise.EventWith(new DoorStateChangedEventArgs() { IsClosed = state });
+            _door.DoorStateChangedEvent += Raise.EventWith(new DoorStateChangedEventArgs() { IsOpen = state });
             Assert.That(_uut.DoorState, Is.EqualTo(state));
         }
 

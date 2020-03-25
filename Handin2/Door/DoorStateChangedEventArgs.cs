@@ -8,6 +8,6 @@ namespace Ladeskab
 {
     public class DoorStateChangedEventArgs : EventArgs
     {
-        public bool IsClosed { get; set; }
+        public bool IsOpen { get; set; }
     }
 }

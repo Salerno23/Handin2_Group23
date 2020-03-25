@@ -44,7 +44,7 @@ namespace Ladeskab
 
         private void HandleDoorStateChangedEvent(object sender, DoorStateChangedEventArgs e)
         {
-            DoorState = e.IsClosed;
+            DoorState = e.IsOpen;
 
             if (DoorState)
             {

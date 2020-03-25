@@ -27,12 +27,12 @@ namespace Ladeskab
         {
             if(state == true)
             {
-                OnDoorOpen(new DoorStateChangedEventArgs { IsClosed = state });
+                OnDoorOpen(new DoorStateChangedEventArgs { IsOpen = state });
                 _oldDoorState = state;
             }
             else if (state == false)
             {
-                OnDoorClose(new DoorStateChangedEventArgs { IsClosed = state });
+                OnDoorClose(new DoorStateChangedEventArgs { IsOpen = state });
                 _oldDoorState = state;
             }
         }

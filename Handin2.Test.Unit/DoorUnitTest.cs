@@ -41,7 +41,7 @@ namespace Handin2.Test.Unit
         public void setDoorStateToNewState_TestStateIsSetCorrect(bool state)
         {
             _uut.SetDoorState(state);
-            Assert.That(_receivedEventArgs.IsClosed, Is.EqualTo(state));
+            Assert.That(_receivedEventArgs.IsOpen, Is.EqualTo(state));
         }
 
 
