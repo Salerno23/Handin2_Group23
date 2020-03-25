@@ -34,7 +34,7 @@ namespace Handin2.Test.Unit
         [TestCase(false)]
         public void DoorStateChanged_EventFired_DoorStateChanged(bool state)
         {
-            _door.DoorStateChangedEvent += Raise.EventWith(new DoorStateChangedEventArgs() { IsClosed = state});
+            _door.DoorStateChangedEvent += Raise.EventWith(new DoorStateChangedEventArgs() { IsClosed = state });
             Assert.That(_uut.DoorState, Is.EqualTo(state));
         }
 
@@ -43,7 +43,7 @@ namespace Handin2.Test.Unit
         [TestCase(1)]
         public void ReadRFID_DifferentArguments_CurrentRFIDIsCorrect(int tag)
         {
-            _rfidReader.ReadRFIDEvent += Raise.EventWith(new ReadRFIDEventArgs{RFIDTag = tag});
+            _rfidReader.ReadRFIDEvent += Raise.EventWith(new ReadRFIDEventArgs{ RFIDTag = tag });
             Assert.That(_uut.ReadRFIDTag,Is.EqualTo(tag));
         }
 
@@ -72,9 +72,41 @@ namespace Handin2.Test.Unit
         }
 
         [Test]
-        public void DoorOpened_Test()
+        public void ReadRFID_StopChargeCalled_LadeskabLocked()
         {
-            _door.SetDoorState(true);
+            //Ladeskab available -> Ladeskab locked
+            _charger.IsConnected.Returns(true);
+            _rfidReader.ReadRFIDEvent += Raise.EventWith(new ReadRFIDEventArgs() { RFIDTag = 32 });
+
+            //Ladeskab locked -> available
+            _rfidReader.ReadRFIDEvent += Raise.EventWith(new ReadRFIDEventArgs() { RFIDTag = 32 });
+            _charger.Received(1).StopCharge();
+        }
+
+        [Test]
+        public void ReadRFID_UnlockDoorCalled_LadeskabLocked()
+        {
+            //Ladeskab available -> Ladeskab locked
+            _charger.IsConnected.Returns(true);
+            _rfidReader.ReadRFIDEvent += Raise.EventWith(new ReadRFIDEventArgs() { RFIDTag = 32 });
+
+            //Ladeskab locked -> available
+            _rfidReader.ReadRFIDEvent += Raise.EventWith(new ReadRFIDEventArgs() { RFIDTag = 32 });
+            //1 call received in constructor, 1 called in state machine
+            _door.Received(2).UnlockDoor();
+        }
+
+        [Test]
+        public void ReadRFID_WrongRFIDErrorMessageCalled_LadeskabLocked()
+        {
+            //Ladeskab available -> Ladeskab locked
+            _charger.IsConnected.Returns(true);
+            _rfidReader.ReadRFIDEvent += Raise.EventWith(new ReadRFIDEventArgs() { RFIDTag = 32 });
+
+            //Ladeskab locked -> Ladeskab locked: Wrong RFID
+            _rfidReader.ReadRFIDEvent += Raise.EventWith(new ReadRFIDEventArgs() { RFIDTag = 31 });
+            //1 call received in constructor, 1 called in state machine
+            _display.Received(1).DisplayMessage("Forkert RFID tag");
         }
     }
 }
