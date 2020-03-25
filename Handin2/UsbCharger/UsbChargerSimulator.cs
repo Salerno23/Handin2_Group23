@@ -10,7 +10,7 @@ namespace Ladeskab
         private const double FullyChargedCurrent = 2.5; // mA
         private const double OverloadCurrent = 750; // mA
         private const int ChargeTimeSeconds = 5; // Sekunder
-        private const int CurrentTickInterval = 250; // ms
+        private const int CurrentTickInterval = 1000; // ms
 
         public event EventHandler<CurrentEventArgs> CurrentValueEvent;
         public event EventHandler<ConnectedEventArgs> ConnectedEvent;
@@ -45,7 +45,7 @@ namespace Ladeskab
                 if (Connected && !_overload)
                 {
                     double newValue = MaxCurrent - 
-                                      _ticksSinceStart * (MaxCurrent - FullyChargedCurrent) / (ChargeTimeSeconds*1000 / CurrentTickInterval);  
+                                      _ticksSinceStart * (MaxCurrent - FullyChargedCurrent) / (ChargeTimeSeconds*1000 / CurrentTickInterval);
                     CurrentValue = Math.Max(newValue, FullyChargedCurrent);
                 }
                 else if (Connected && _overload)

@@ -17,14 +17,12 @@ namespace Ladeskab
         public double CurrentValue { get; private set; }
         public bool IsConnected { get; private set; }
 
-       
         public ChargeControl( IUsbCharger usbCharger, IDisplay display)
         {
             usbCharger.CurrentValueEvent += HandleNewCurrentEvent;
             usbCharger.ConnectedEvent += HandleNewConnectedEvent;
             _usbCharger = usbCharger;
             _display = display;
-
         }
 
         private void HandleNewCurrentEvent(object s, CurrentEventArgs e)
@@ -34,11 +32,11 @@ namespace Ladeskab
             {
                 _display.DisplayMessage("Ingen forbindelse til telefon. Opladning ikke startet.");
             }
-            else if(CurrentValue < 0.0 &&  CurrentValue <= 5.0)
+            else if (0.0 < CurrentValue && CurrentValue <= 5.0)
             {
                 _display.DisplayMessage("Telefonen er fuldt opladet");
             }
-            else if (CurrentValue < 5.0 && CurrentValue <= 500.0)
+            else if ((5 < CurrentValue) && (CurrentValue <= 500.0))
             {
                 _display.DisplayMessage("Opladning er i gang.");
             }

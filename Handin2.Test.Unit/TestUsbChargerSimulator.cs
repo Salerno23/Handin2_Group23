@@ -41,7 +41,7 @@ namespace Handin2.Test.Unit
 
             _uut.StartCharge();
 
-            System.Threading.Thread.Sleep(1100);
+            System.Threading.Thread.Sleep(4050);
 
             Assert.That(numValues, Is.GreaterThan(4));
         }
@@ -54,7 +54,7 @@ namespace Handin2.Test.Unit
 
             _uut.StartCharge();
 
-            System.Threading.Thread.Sleep(300);
+            System.Threading.Thread.Sleep(10000);
 
             Assert.That(lastValue, Is.LessThan(500.0));
         }
@@ -64,7 +64,7 @@ namespace Handin2.Test.Unit
         {
             _uut.StartCharge();
 
-            System.Threading.Thread.Sleep(300);
+            System.Threading.Thread.Sleep(1050);
 
             Assert.That(_uut.CurrentValue, Is.LessThan(500.0));
         }
@@ -105,7 +105,7 @@ namespace Handin2.Test.Unit
             pause.Reset();
 
             // Wait for next tick, should send overloaded value
-            pause.WaitOne(300);
+            pause.WaitOne(1050);
 
             Assert.That(lastValue, Is.GreaterThan(500.0));
         }
@@ -133,7 +133,7 @@ namespace Handin2.Test.Unit
             pause.Reset();
 
             // Wait for next tick, should send dConnected value
-            pause.WaitOne(300);
+            pause.WaitOne(1050);
 
             Assert.That(lastValue, Is.Zero);
         }
