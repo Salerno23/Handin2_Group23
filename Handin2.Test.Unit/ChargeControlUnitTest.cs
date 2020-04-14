@@ -17,18 +17,14 @@ namespace Handin2.Test.Unit
         private ChargeControl _uut;
         private IUsbCharger _usbCharger;
         private IDisplay _display;
-       // private CurrentEventArgs _receivedCurrentEventArgs;
-       // private ConnectedEventArgs _receivedConnectedEventArgs;
+       
         
         [SetUp]
         public void Setup()
         {
-          //  _receivedCurrentEventArgs = null;
-            //_receivedConnectedEventArgs = null;
             _usbCharger = Substitute.For<IUsbCharger>();
             _display = Substitute.For<IDisplay>();
             _uut = new ChargeControl(_usbCharger, _display);
-
         }
 
         [Test]
@@ -63,7 +59,6 @@ namespace Handin2.Test.Unit
             Assert.That(_uut.CurrentValue, Is.EqualTo(current));
         }
 
-       
 
         /*Tilføjet til genaflevering*/
 
