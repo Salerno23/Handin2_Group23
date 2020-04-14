@@ -17,14 +17,14 @@ namespace Handin2.Test.Unit
         private ChargeControl _uut;
         private IUsbCharger _usbCharger;
         private IDisplay _display;
-        private CurrentEventArgs _receivedCurrentEventArgs;
-        private ConnectedEventArgs _receivedConnectedEventArgs;
+       // private CurrentEventArgs _receivedCurrentEventArgs;
+       // private ConnectedEventArgs _receivedConnectedEventArgs;
         
         [SetUp]
         public void Setup()
         {
-            _receivedCurrentEventArgs = null;
-            _receivedConnectedEventArgs = null;
+          //  _receivedCurrentEventArgs = null;
+            //_receivedConnectedEventArgs = null;
             _usbCharger = Substitute.For<IUsbCharger>();
             _display = Substitute.For<IDisplay>();
             _uut = new ChargeControl(_usbCharger, _display);
@@ -63,7 +63,50 @@ namespace Handin2.Test.Unit
             Assert.That(_uut.CurrentValue, Is.EqualTo(current));
         }
 
+       
+
+        /*Tilføjet til genaflevering*/
+
+        [Test]
+        public void BehaviourTest_IfCurrentTooLow_DisplayNoConnection()
+        {
+            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs() {Current = 0});
+            _display.Received(1).DisplayMessage("Ingen forbindelse til telefon. Opladning ikke startet.");
+        }
+
+        [TestCase(0.1)]
+        [TestCase(2)]
+        [TestCase(4.9)]
+        [TestCase(5.0)]
+        public void BehaviourTest_IfCurrentBetweenZeroAndFive_DisplayFullyCharged(double current)
+        {
+            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs() { Current = current });
+            _display.Received(1).DisplayMessage("Telefonen er fuldt opladet");
+        }
+
         
+        [TestCase(5.1)]
+        [TestCase(250)]
+        [TestCase(499)]
+        [TestCase(500)]
+        public void BehaviourTest_IfCurrentNormal_DisplayChargingStarted(double current)
+        {
+            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs() { Current = current });
+            _display.Received(1).DisplayMessage("Opladning er i gang.");
+        }
+
+
+        [TestCase(501)]
+        public void BehaviourTest_IfCurrentTooHigh_StopChargeCalled(double current)
+        {
+            _usbCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs() { Current = current });
+            _usbCharger.Received(1).StopCharge();
+        }
+
+        /*stop*/
+
+
+
         [Test]
         public void StopCharge_()
         {

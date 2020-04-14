@@ -9,8 +9,8 @@ namespace Ladeskab
     public class ChargeControl: IChargeControl 
     {
        
-        public event EventHandler<CurrentEventArgs> CurrentValueEvent;
-        public event EventHandler<ConnectedEventArgs> ConnectedEvent;
+       //public event EventHandler<CurrentEventArgs> CurrentValueEvent;
+       // public event EventHandler<ConnectedEventArgs> ConnectedEvent;
 
         private readonly IDisplay _display;
         private readonly IUsbCharger _usbCharger;
@@ -49,6 +49,7 @@ namespace Ladeskab
                 else if (CurrentValue > 500.0)
                 {
                     _display.DisplayMessage("Der er sket en fejl. Frakobl venligst telefonen");
+                    _usbCharger.StopCharge();
                 }
             }
         }
