@@ -22,6 +22,11 @@ namespace Ladeskab
             {
                 string input;
                 System.Console.WriteLine("Indtast E, O, C, R, A: ");
+                System.Console.WriteLine("E: Exit");
+                System.Console.WriteLine("O: Open door");
+                System.Console.WriteLine("C: Close door");
+                System.Console.WriteLine("R: RFID tag");
+                System.Console.WriteLine("A: Attach phone");
                 input = Console.ReadLine();
                 if (string.IsNullOrEmpty(input)) continue;
 
