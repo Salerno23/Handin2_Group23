@@ -18,6 +18,7 @@ namespace Handin2.Test.Unit
         private IRFIDReader _rfidReader;
         private IDisplay _display;
         private IChargeControl _charger;
+        private ILogging _logging;
 
         [SetUp]
         public void Setup()
@@ -26,8 +27,9 @@ namespace Handin2.Test.Unit
             _rfidReader = Substitute.For<IRFIDReader>();
             _display = Substitute.For<IDisplay>();
             _charger = Substitute.For<IChargeControl>();
+            _logging = Substitute.For<ILogging>();
 
-            _uut = new StationControl(_door, _rfidReader, _display, _charger);
+            _uut = new StationControl(_door, _rfidReader, _display, _charger, _logging);
         }
 
         [TestCase(true)]

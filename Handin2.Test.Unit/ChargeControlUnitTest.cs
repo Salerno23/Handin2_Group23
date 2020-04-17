@@ -100,8 +100,6 @@ namespace Handin2.Test.Unit
 
         /*stop*/
 
-
-
         [Test]
         public void StopCharge_()
         {
